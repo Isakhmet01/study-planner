@@ -17,7 +17,7 @@ The project is built using:
 ## Team Members
 - Musakhan Isakhmet
 - Serik Dias
-- Sembaev Zharas
+- Sembayev Zharas
 
 ## GitHub Repository
 This repository contains both frontend and backend parts of the project.

@@ -1,0 +1,15 @@
+<div class="login-page">
+  <div class="login-card">
+    <h2>Sign Up</h2>
+    <p class="login-subtitle">Create a new account to use Study Planner.</p>
+
+    <div class="login-form">
+      <input [(ngModel)]="username" placeholder="Username">
+      <input [(ngModel)]="password" type="password" placeholder="Password">
+
+      <button (click)="onSignup()">Sign Up</button>
+
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>

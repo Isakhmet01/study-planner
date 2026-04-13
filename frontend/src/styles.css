@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  color: #111827;
+}
+
+h1, h2 {
+  margin-top: 0;
+}
+
+input,
+select,
+button {
+  font: inherit;
+}

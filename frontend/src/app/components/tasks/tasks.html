@@ -1,0 +1,79 @@
+<div class="tasks-page">
+  <h2>Tasks</h2>
+
+  <div class="form">
+    <input [(ngModel)]="newTask.title" placeholder="Title">
+    <input [(ngModel)]="newTask.description" placeholder="Description">
+    <input [(ngModel)]="newTask.deadline" type="date">
+
+    <select [(ngModel)]="newTask.subject">
+      <option [ngValue]="0">Select subject</option>
+      <option *ngFor="let s of subjects" [ngValue]="s.id">
+        {{ s.name }}
+      </option>
+    </select>
+
+    <button (click)="addTask()">Add Task</button>
+  </div>
+
+  <div class="filter-box">
+    <select [(ngModel)]="selectedSubjectId">
+      <option [ngValue]="0">All subjects</option>
+      <option *ngFor="let s of subjects" [ngValue]="s.id">
+        {{ s.name }}
+      </option>
+    </select>
+  </div>
+
+  <div *ngFor="let task of getFilteredTasks()">
+    <div *ngIf="editingTaskId !== task.id"
+         class="task-item"
+         [class.overdue-task]="isOverdue(task.deadline) && !task.completed">
+
+      <div class="task-content">
+        <div class="task-left">
+          <h3 [style.textDecoration]="task.completed ? 'line-through' : 'none'">
+            {{ task.title }}
+          </h3>
+
+          <p>{{ task.description }}</p>
+          <span class="task-date">{{ task.deadline }}</span>
+          <span class="task-subject">Subject: {{ getSubjectName(task.subject) }}</span>
+
+          <span class="deadline-status" *ngIf="isOverdue(task.deadline) && !task.completed">
+            Overdue
+          </span>
+
+          <span class="completed-status" *ngIf="task.completed">
+            Completed
+          </span>
+        </div>
+
+        <div class="task-right">
+          <button (click)="toggleCompleted(task)">
+            {{ task.completed ? 'Undo' : 'Complete' }}
+          </button>
+          <button (click)="startEdit(task)">Edit</button>
+          <button (click)="deleteTask(task.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="editingTaskId === task.id" class="task-item">
+      <div class="form">
+        <input [(ngModel)]="editTask.title" placeholder="Title">
+        <input [(ngModel)]="editTask.description" placeholder="Description">
+        <input [(ngModel)]="editTask.deadline" type="date">
+
+        <select [(ngModel)]="editTask.subject">
+          <option *ngFor="let s of subjects" [ngValue]="s.id">
+            {{ s.name }}
+          </option>
+        </select>
+
+        <button (click)="saveEdit()">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+.subjects-page {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.form input {
+  width: 280px;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  background: white;
+  font-size: 16px;
+}
+
+.form button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 14px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: #1d4ed8;
+}
+
+.subjects-list {
+  margin-top: 20px;
+}
+
+.subject-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: white;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.subject-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.delete-btn {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn {
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #1d4ed8;
+}
+
+.save-btn {
+  background: #22c55e;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #16a34a;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  border: none;
+  color: #111827;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
+}

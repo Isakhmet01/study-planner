@@ -1,0 +1,31 @@
+<div class="subjects-page">
+  <h2>Subjects</h2>
+
+  <div class="form">
+    <input [(ngModel)]="newSubjectName" placeholder="New subject">
+    <button (click)="addSubject()">Add</button>
+  </div>
+
+  <div class="subjects-list">
+    <div *ngFor="let subject of subjects">
+
+      <div *ngIf="editingSubjectId !== subject.id" class="subject-item">
+        <span class="subject-name">{{ subject.name }}</span>
+
+        <div class="buttons">
+          <button class="edit-btn" (click)="startEdit(subject)">Edit</button>
+          <button class="delete-btn" (click)="deleteSubject(subject.id)">Delete</button>
+        </div>
+      </div>
+
+      <div *ngIf="editingSubjectId === subject.id" class="subject-item">
+        <input [(ngModel)]="editSubjectName">
+
+        <div class="buttons">
+          <button class="save-btn" (click)="saveEdit()">Save</button>
+          <button class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

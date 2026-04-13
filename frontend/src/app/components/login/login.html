@@ -1,0 +1,20 @@
+<div class="login-page">
+  <div class="login-card">
+    <h2>Login</h2>
+    <p class="login-subtitle">Sign in to manage your study tasks and subjects.</p>
+
+    <div class="login-form">
+      <input [(ngModel)]="username" placeholder="Username">
+      <input [(ngModel)]="password" type="password" placeholder="Password">
+
+      <button (click)="onLogin()">Login</button>
+
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+
+    <p class="login-link">
+      Don't have an account?
+      <a routerLink="/signup">Sign up</a>
+    </p>
+  </div>
+</div>

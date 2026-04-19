@@ -1,23 +1,40 @@
 <div class="tasks-page">
   <h2>Tasks</h2>
 
-  <div class="form">
-    <input [(ngModel)]="newTask.title" placeholder="Title">
-    <input [(ngModel)]="newTask.description" placeholder="Description">
-    <input [(ngModel)]="newTask.deadline" type="date">
+  <form class="form" (ngSubmit)="addTask()" #taskForm="ngForm">
+    <input
+      [(ngModel)]="newTask.title"
+      name="title"
+      placeholder="Title"
+    >
 
-    <select [(ngModel)]="newTask.subject">
-      <option [ngValue]="0">Select subject</option>
-      <option *ngFor="let s of subjects" [ngValue]="s.id">
+    <input
+      [(ngModel)]="newTask.description"
+      name="description"
+      placeholder="Description"
+    >
+
+    <input
+      [(ngModel)]="newTask.deadline"
+      name="deadline"
+      type="datetime-local"
+    >
+
+    <select
+      [(ngModel)]="newTask.subject"
+      name="subject"
+    >
+      <option value="0">Select subject</option>
+      <option *ngFor="let s of subjects" [value]="s.id">
         {{ s.name }}
       </option>
     </select>
 
-    <button (click)="addTask()">Add Task</button>
-  </div>
+    <button type="submit">Add Task</button>
+  </form>
 
   <div class="filter-box">
-    <select [(ngModel)]="selectedSubjectId">
+    <select [(ngModel)]="selectedSubjectId" name="filter">
       <option [ngValue]="0">All subjects</option>
       <option *ngFor="let s of subjects" [ngValue]="s.id">
         {{ s.name }}
@@ -28,7 +45,9 @@
   <div *ngFor="let task of getFilteredTasks()">
     <div *ngIf="editingTaskId !== task.id"
          class="task-item"
-         [class.overdue-task]="isOverdue(task.deadline) && !task.completed">
+         [class.overdue-task]="isOverdue(task.deadline) && !task.completed"
+         [class.completed-task]="task.completed"
+         (click)="openTaskModal(task)">
 
       <div class="task-content">
         <div class="task-left">
@@ -38,6 +57,7 @@
 
           <p>{{ task.description }}</p>
           <span class="task-date">{{ task.deadline }}</span>
+          <span class="task-date">Time left: {{ getTimeLeft(task.deadline) }}</span>
           <span class="task-subject">Subject: {{ getSubjectName(task.subject) }}</span>
 
           <span class="deadline-status" *ngIf="isOverdue(task.deadline) && !task.completed">
@@ -50,30 +70,66 @@
         </div>
 
         <div class="task-right">
-          <button (click)="toggleCompleted(task)">
+          <button type="button" (click)="toggleCompleted(task); $event.stopPropagation()">
             {{ task.completed ? 'Undo' : 'Complete' }}
           </button>
-          <button (click)="startEdit(task)">Edit</button>
-          <button (click)="deleteTask(task.id)">Delete</button>
+          <button type="button" (click)="startEdit(task); $event.stopPropagation()">Edit</button>
+          <button type="button" (click)="deleteTask(task.id); $event.stopPropagation()">Delete</button>
         </div>
       </div>
     </div>
 
     <div *ngIf="editingTaskId === task.id" class="task-item">
       <div class="form">
-        <input [(ngModel)]="editTask.title" placeholder="Title">
-        <input [(ngModel)]="editTask.description" placeholder="Description">
-        <input [(ngModel)]="editTask.deadline" type="date">
+        <input [(ngModel)]="editTask.title" name="editTitle" placeholder="Title">
+        <input [(ngModel)]="editTask.description" name="editDescription" placeholder="Description">
+        <input [(ngModel)]="editTask.deadline" name="editDeadline" type="datetime-local">
 
-        <select [(ngModel)]="editTask.subject">
+        <select [(ngModel)]="editTask.subject" name="editSubject">
           <option *ngFor="let s of subjects" [ngValue]="s.id">
             {{ s.name }}
           </option>
         </select>
 
-        <button (click)="saveEdit()">Save</button>
-        <button (click)="cancelEdit()">Cancel</button>
+        <button type="button" (click)="saveEdit()">Save</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="selectedTask" (click)="closeTaskModal()">
+  <div class="task-modal" (click)="$event.stopPropagation()">
+    <h2>{{ selectedTask.title }}</h2>
+    <p class="modal-description">{{ selectedTask.description }}</p>
+
+    <div class="timer-section">
+      <div class="timer-circle">
+        <div class="timer-mode">{{ isWorking ? 'Work Time' : 'Relax Time' }}</div>
+        <div class="timer-display">{{ timerDisplay }}</div>
+        <div class="timer-subtext">
+          {{ isWorking ? workMinutes : relaxMinutes }} min
+        </div>
+      </div>
+    </div>
+
+    <div class="pomodoro-inputs">
+      <label>
+        Choose time for work:
+        <input type="number" min="1" [(ngModel)]="workMinutes">
+      </label>
+
+      <label>
+        Choose time for relax:
+        <input type="number" min="1" [(ngModel)]="relaxMinutes">
+      </label>
+    </div>
+
+    <div class="modal-buttons">
+      <button type="button" (click)="startWork()">Start Work</button>
+      <button type="button" *ngIf="timerRunning" (click)="stopTimer()">Pause</button>
+      <button type="button" *ngIf="isPaused" (click)="resumeTimer()">Resume</button>
+      <button type="button" (click)="closeTaskModal()">Close</button>
     </div>
   </div>
 </div>

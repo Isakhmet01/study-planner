@@ -58,6 +58,7 @@ button:hover {
   padding: 18px 20px;
   margin-bottom: 14px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
 }
 
 .task-content {
@@ -128,4 +129,113 @@ button:hover {
 
 .overdue-task {
   border-left: 6px solid #ef4444;
+  background: #fee2e2;
+}
+
+.overdue-task .task-left h3,
+.overdue-task .task-left p,
+.overdue-task .task-date,
+.overdue-task .task-subject,
+.overdue-task .deadline-status {
+  color: #b91c1c;
+}
+
+.completed-task {
+  border-left: 6px solid #22c55e;
+  background: #dcfce7;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.task-modal {
+  width: 100%;
+  max-width: 520px;
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+.task-modal h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.modal-description {
+  color: #4b5563;
+  margin-bottom: 20px;
+}
+
+.timer-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0 28px;
+}
+
+.timer-circle {
+  width: 280px;
+  height: 280px;
+  border: 7px solid #000000;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #067ff9;
+  color: white;
+}
+
+.timer-mode {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.timer-display {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 14px;
+  color: rgb(255, 255, 255);
+}
+
+.timer-subtext {
+  font-size: 18px;
+  color: #fafafb;
+}
+
+.pomodoro-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.pomodoro-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #111827;
+  font-weight: 500;
+}
+
+.pomodoro-inputs input {
+  width: 100%;
+  max-width: 180px;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }

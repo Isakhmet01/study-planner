@@ -1,5 +1,5 @@
 .home-page {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 40px auto;
   padding: 0 20px;
 }
@@ -9,6 +9,7 @@
   border-radius: 24px;
   padding: 48px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  margin-bottom: 32px;
 }
 
 .badge {
@@ -25,6 +26,7 @@
 .hero-card h1 {
   font-size: 48px;
   margin-bottom: 16px;
+  color: #111827;
 }
 
 .hero-card p {
@@ -65,4 +67,86 @@
 
 .secondary-btn:hover {
   background: #e5e7eb;
+}
+
+.calendar-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-card h2 {
+  margin: 0 0 20px;
+  color: #111827;
+  font-size: 32px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 14px;
+  overflow-x: auto;
+}
+
+.calendar-column {
+  min-height: 320px;
+  background: #eef2ff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+}
+
+.calendar-day-header {
+  background: #dbeafe;
+  color: #1e3a8a;
+  font-weight: 700;
+  text-align: center;
+  padding: 14px 10px;
+  border-bottom: 1px solid #bfdbfe;
+}
+
+.calendar-day-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendar-task {
+  background: white;
+  border-left: 4px solid #2563eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #111827;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.calendar-task-title {
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.calendar-task-subject {
+  font-size: 13px;
+  color: #2563eb;
+  margin-bottom: 4px;
+}
+
+.calendar-task-deadline {
+  font-size: 12px;
+  color: #6b7280;
+}
+.overdue-calendar-task {
+  background: #fee2e2;
+  border-left: 4px solid #ef4444;
+}
+
+.overdue-calendar-task .calendar-task-title {
+  color: #b91c1c;
+}
+
+.overdue-calendar-task .calendar-task-deadline {
+  color: #b91c1c;
 }

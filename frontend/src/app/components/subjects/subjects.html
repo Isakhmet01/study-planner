@@ -1,10 +1,14 @@
 <div class="subjects-page">
   <h2>Subjects</h2>
 
-  <div class="form">
-    <input [(ngModel)]="newSubjectName" placeholder="New subject">
-    <button (click)="addSubject()">Add</button>
-  </div>
+  <form class="form" (ngSubmit)="addSubject()">
+    <input
+      [(ngModel)]="newSubjectName"
+      name="newSubjectName"
+      placeholder="New subject"
+    >
+    <button type="submit">Add</button>
+  </form>
 
   <div class="subjects-list">
     <div *ngFor="let subject of subjects">

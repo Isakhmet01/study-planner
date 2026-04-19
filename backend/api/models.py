@@ -13,7 +13,7 @@ class Subject(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    deadline = models.DateField()
+    deadline = models.DateTimeField()
     completed = models.BooleanField(default=False)
 
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)

@@ -11,4 +11,24 @@
       <a routerLink="/subjects" class="secondary-btn">View Subjects</a>
     </div>
   </div>
+
+  <div class="calendar-card">
+    <h2>Weekly Tasks</h2>
+
+    <div class="calendar-grid">
+      <div *ngFor="let day of getDays()" class="calendar-column">
+        <div class="calendar-day-header">{{ day }}</div>
+
+        <div class="calendar-day-body">
+          <div *ngFor="let task of groupedTasks[day]"
+            class="calendar-task"
+            [class.overdue-calendar-task]="isOverdue(task.deadline)">
+            <div class="calendar-task-title">{{ task.title }}</div>
+            <div class="calendar-task-subject">Subject: {{ getSubjectName(task.subject) }}</div>
+            <div class="calendar-task-deadline">{{ formatDeadline(task.deadline) }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

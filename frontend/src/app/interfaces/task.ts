@@ -6,3 +6,4 @@ export interface Task {
   subject: number;
   completed: boolean;
 }
+

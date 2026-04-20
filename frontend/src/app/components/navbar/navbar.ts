@@ -16,6 +16,7 @@ export class Navbar {
     private router: Router
   ) {}
 
+
   logout() {
     this.authService.clearToken();
     this.router.navigate(['/login']);

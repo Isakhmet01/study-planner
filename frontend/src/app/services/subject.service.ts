@@ -13,6 +13,7 @@ export class SubjectService {
 
   constructor(private http: HttpClient) {}
 
+
   getSubjects(): Observable<Subject[]> {
     return this.http.get<Subject[]>(this.apiUrl);
   }

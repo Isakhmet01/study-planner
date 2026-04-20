@@ -1,23 +1,109 @@
-#!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
-import os
-import sys
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { TaskService } from '../../services/task.service';
+import { SubjectService } from '../../services/subject.service';
+import { Task } from '../../interfaces/task';
+import { Subject } from '../../interfaces/subject';
 
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
+})
+export class Home {
+  tasks: Task[] = [];
+  subjects: Subject[] = [];
+  groupedTasks: { [key: string]: Task[] } = {};
 
-def main():
-    """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
-    execute_from_command_line(sys.argv)
+  intervalId: any;
 
+  constructor(
+    private taskService: TaskService,
+    private subjectService: SubjectService
+  ) {}
 
+  ngOnInit() {
+    this.loadData();
 
-if __name__ == '__main__':
-    main()
+    this.intervalId = setInterval(() => {
+      this.loadData();
+    }, 3000);
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  loadData() {
+    this.taskService.getTasks().subscribe(data => {
+      this.tasks = data;
+      this.groupTasks();
+    });
+
+    this.subjectService.getSubjects().subscribe(data => {
+      this.subjects = data;
+    });
+  }
+
+  groupTasks() {
+    const daysOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const daysMap: { [key: string]: Task[] } = {};
+
+    this.tasks.forEach(task => {
+      if (task.completed) return;
+
+      const date = new Date(task.deadline);
+      const dayIndex = date.getDay();
+      const day = daysOrder[(dayIndex + 6) % 7];
+
+      if (!daysMap[day]) {
+        daysMap[day] = [];
+      }
+
+      daysMap[day].push(task);
+    });
+
+    for (let day in daysMap) {
+      daysMap[day].sort((a, b) =>
+        new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
+      );
+    }
+
+    const sortedMap: { [key: string]: Task[] } = {};
+    daysOrder.forEach(day => {
+      sortedMap[day] = daysMap[day] || [];
+    });
+
+    this.groupedTasks = sortedMap;
+  }
+
+  getDays(): string[] {
+    return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  }
+
+  getSubjectName(subjectId: number): string {
+    const subject = this.subjects.find(s => s.id === subjectId);
+    return subject ? subject.name : 'Unknown';
+  }
+
+  formatDeadline(deadline: string): string {
+    const date = new Date(deadline);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${year}-${month}-${day}  ${hours}:${minutes}`;
+  }
+
+  isOverdue(deadline: string): boolean {
+    return new Date(deadline).getTime() < new Date().getTime();
+  }
+}

@@ -7,6 +7,7 @@ class SubjectSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
 
 
+
 class TaskSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=200)

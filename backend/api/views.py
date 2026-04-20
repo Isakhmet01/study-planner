@@ -15,6 +15,7 @@ from .serializers import (
     TaskModelSerializer
 )
 
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def subject_update(request, pk):
